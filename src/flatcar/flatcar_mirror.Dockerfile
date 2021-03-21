@@ -7,3 +7,4 @@ RUN yum install git -y \
 && git clone https://github.com/kinvolk/flatcar-release-mirror.git .
 
 ENTRYPOINT ["sh","/data/flatcar-release-mirror.sh"]
+#CMD [ "--channels", "stable,beta","--above-version","2700"]

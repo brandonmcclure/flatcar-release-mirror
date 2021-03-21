@@ -4,15 +4,15 @@ services:
       context: ./src/flatcar
       dockerfile: flatcar_mirror.Dockerfile
     volumes:
-      - ./mountPoints/flatcar:/data/
-    command: [ "--channels", "stable,beta","--above-version","2500","--logfile", "/dev/stdout"]
+      - ./mnt/flatcar:/data/
+    command: [ "--channels", "stable,beta,alpha","--above-version","2700"]
   flatcar_fileserver_stable:
       image: halverneus/static-file-server
       environment: 
         - PORT=8080
         - FOLDER=/var/www/
       volumes:
-        - ./mountPoints/flatcar/stable:/var/www/
+        - ./mnt/flatcar/stable:/var/www/
       ports: 
         - 8280:8080
   flatcar_fileserver_beta:
@@ -21,6 +21,15 @@ services:
       - PORT=8080
       - FOLDER=/var/www/
     volumes:
-      - ./mountPoints/flatcar/beta:/var/www/
+      - ./mnt/flatcar/beta:/var/www/
     ports: 
       - 8081:8080
+  flatcar_fileserver_alpha:
+    image: halverneus/static-file-server
+    environment: 
+      - PORT=8080
+      - FOLDER=/var/www/
+    volumes:
+      - ./mnt/flatcar/alpha:/var/www/
+    ports: 
+      - 8082:8080
